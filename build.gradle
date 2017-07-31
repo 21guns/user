@@ -1,0 +1,49 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.6.RELEASE'
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+group = 'guns21'
+
+//repositories {
+//    mavenCentral()
+//}
+
+
+dependencies {
+//    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.session:spring-session')
+    compile('com.google.guava:guava:21.0')
+    compileOnly('org.projectlombok:lombok')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    applicationName = jar.baseName
+    dockerfile = file('Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into "${stageDir}/target"
+        }
+    }
+}
+
+// 打印jar下载的路径
+task showMyCache {
+    configurations.compile.each { println it }
+}
