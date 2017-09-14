@@ -30,7 +30,7 @@ ENV TZ Asia/Shanghai
 #               -XX:+UseCMSInitiatingOccupancyOnly \
 #               -Djava.awt.headless=true"
 #jar
-ADD target/user-0.0.1-SNAPSHOT.jar /var/user.jar
+ADD target/user-1.0.0-SNAPSHOT.jar /var/user.jar
 ENV SETUP_JAR /var/user.jar
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

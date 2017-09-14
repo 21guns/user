@@ -1,1 +1,5 @@
 rootProject.name = 'user'
+include 'user.api'
+include 'user.controller'
+include 'user.provider'
+

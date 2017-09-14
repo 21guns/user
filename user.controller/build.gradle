@@ -1,0 +1,23 @@
+//apply from: 'http://git.oschina.net/21hulk/gradle/raw/master/spring-boot-application.gradle'
+apply from: '/Volumes/data/Develop/workspace/21guns/gradle/spring-boot-application.gradle'
+
+archivesBaseName = 'user'
+
+//apply from: 'http://git.oschina.net/21hulk/gradle/raw/master/docker.gradle'
+apply from: '/Volumes/data/Develop/workspace/21guns/gradle/docker.gradle'
+
+//version = ''
+dependencies {
+    compile 'com.guns21:support:1.0.0-SNAPSHOT'
+    compile 'com.guns21:jackjson-mixin:1.0.0-SNAPSHOT'
+
+
+    compile('org.springframework.session:spring-session')
+    compile('com.google.guava:guava:21.0')
+//    compile('com.guns21:parent:1.0-SNAPSHOT')
+}
+
+// 打印jar下载的路径
+task showMyCache {
+    configurations.compile.each { println it }
+}
