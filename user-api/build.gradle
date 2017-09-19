@@ -3,4 +3,6 @@ apply from: '/Volumes/data/Develop/workspace/21guns/gradle/java.gradle'
 
 dependencies {
     compile 'com.guns21:result:1.0.0-SNAPSHOT'
+
+    compileOnly 'javax.validation:validation-api:1.1.0.Final'
 }
