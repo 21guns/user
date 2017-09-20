@@ -4,7 +4,7 @@ import com.guns21.authentication.ext.AuthExtValidator;
 import com.guns21.authentication.security.HttpAuthenticationFailureHandler;
 import com.guns21.authentication.security.HttpAuthenticationSuccessHandler;
 import com.guns21.authentication.security.HttpLogoutSuccessHandler;
-import com.guns21.authentication.security.SmsCodeAuthenticationProvider;
+import com.guns21.authentication.security.PasswordEqualsAuthenticationProvider;
 import com.guns21.user.security.ThirdLoginAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,9 +68,9 @@ public class ThirdLoginAuthSecurityConfig extends WebSecurityConfigurerAdapter {
         return new ThirdLoginAuthenticationProvider();
     }
 
-    @Bean(name = "authenticationProvider")
-    public AuthenticationProvider authenticationProvider() {
-        return new SmsCodeAuthenticationProvider();
+    @Bean(name = "passwordAuthenticationProvider")
+    public AuthenticationProvider passwordAuthenticationProvider() {
+        return new PasswordEqualsAuthenticationProvider();
     }
 
     @Override

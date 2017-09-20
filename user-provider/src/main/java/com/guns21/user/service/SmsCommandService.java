@@ -26,20 +26,19 @@ public class SmsCommandService extends BaseCommandService implements ISmsCommand
     private static Logger logger = LoggerFactory.getLogger(SmsCommandService.class);
 
     @Autowired
-    private RedisTemplate<String, Object> template;
+    private RedisTemplate<String, String> template;
 
     @Override
     public Result sendRegisterCode(String mobile) {
-        ValueOperations<String, Object> ops = template.opsForValue();
+        ValueOperations<String, String> ops = template.opsForValue();
         String strSmsCount = mobile + ".smsCount";
         String strSmsCode = mobile + ".code";
         //每天限制发送验证码次数
         int maxCount = 3;
-        Integer conut = 0;
-        if ((conut = (Integer) ops.get(strSmsCount)) > maxCount) {
+        if (ops.get(strSmsCount) != null && Integer.valueOf(ops.get(strSmsCount)) >= maxCount) {
             return Result.fail("您今天获取验证码过于频繁,请休息一下明天再试.");
         }
-       ;
+        ;
         String validCode = (String) ops.get(strSmsCode);
         if (validCode == null) {
             SmsLog smsLog = SmsLog.newSmsLog();
@@ -50,16 +49,21 @@ public class SmsCommandService extends BaseCommandService implements ISmsCommand
             smsLog.setCreateTime(currentDate);
             Date pastTime = new Date(currentDate.getTime() + (60 * 1000)); //设置过期时间为1分钟
             smsLog.setPastTime(pastTime);
-            smsLog.setValidCode(generatorCode(4)); //TODO 随机验证码
+            smsLog.setValidCode(generatorCode(4));
             if (StringUtils.isEmpty(smsLog.getContent())) {
                 smsLog.setContent(SendMessageUtils.SMS_TEMPLATE + smsLog.getValidCode());
             }
-            ops.set(strSmsCode, smsLog.getValidCode() , 1, TimeUnit.MINUTES);
+            ops.set(strSmsCode, smsLog.getValidCode(), 1, TimeUnit.MINUTES);
 
 
 //            persistedActorRef.tell(smsLog, null); TODO 数据持久化
 
             Long smsCount = ops.increment(strSmsCount, 1);
+            if (smsCount == 1) {
+                int expirationTime = DateUtils.datediffMinute(DateUtils.getEndDate(), DateUtils.newDate());
+                template.expire(strSmsCount, expirationTime, TimeUnit.MINUTES);
+            }
+
             logger.debug("{}已发送{}次验证码", mobile, smsCount);
 
 

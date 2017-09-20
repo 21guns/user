@@ -45,3 +45,10 @@ spring:
      naming:
       implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
       physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+com:
+  guns21:
+    security:
+      permit-pages: /api/sms/v1/sendCode
+      message:
+        password-error: 验证码错误

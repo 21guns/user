@@ -8,10 +8,12 @@ apply from: '/Volumes/data/Develop/workspace/21guns/gradle/docker.gradle'
 
 dependencies {
     compile 'com.guns21:user-api:1.0.0-SNAPSHOT'
+    compile 'com.guns21:user-provider:1.0.0-SNAPSHOT'
     compile 'com.guns21:support:1.0.0-SNAPSHOT'
     compile 'com.guns21:servlet:1.0.0-SNAPSHOT'
     compile 'com.guns21:jackjson-mixin:1.0.0-SNAPSHOT'
-    compile 'com.guns21:authentication:1.0.0-SNAPSHOT'
+    compile 'com.guns21:authorization:1.0.0-SNAPSHOT'
+    compile 'com.guns21:spring-mvc:1.0.0-SNAPSHOT'
 
     compile 'com.github.binarywang:weixin-java-mp:2.8.0'
     compile 'net.jodah:failsafe:1.0.4'
