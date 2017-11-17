@@ -1,9 +1,9 @@
 package com.guns21.user.security;
 
 import com.guns21.authentication.api.entity.AuthUser;
-import com.guns21.authentication.api.entity.Role;
 import com.guns21.authentication.api.service.UserAuthService;
 import com.guns21.authorization.ResourceRoleMapping;
+import com.guns21.web.entity.Role;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -43,8 +43,7 @@ public class UserAuthServiceImpl implements UserAuthService, ResourceRoleMapping
      */
     @Override
     public List<Role> getUserRoles(String userName) {
-        Role role = new Role();
-        role.setName("NORMAL");
+        Role role = new Role("NORMAL", "NORMAL", "NORMAL");
         return Arrays.asList(role);
     }
 

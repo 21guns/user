@@ -1,12 +1,12 @@
 package com.guns21.user.security;
 
-import com.guns21.authentication.api.entity.Role;
 import com.guns21.authentication.api.entity.UserRoleDetails;
 import com.guns21.authentication.api.service.UserAuthService;
 import com.guns21.common.util.ObjectUtils;
 import com.guns21.servlet.util.RequestUtils;
 import com.guns21.user.api.dto.RegisterUserInfo;
 import com.guns21.user.api.enums.UserSource;
+import com.guns21.web.entity.Role;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
