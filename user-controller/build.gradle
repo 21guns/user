@@ -7,8 +7,10 @@ archivesBaseName = 'user'
 apply from: 'https://raw.githubusercontent.com/21guns/java-gradle/master/docker.gradle'
 
 dependencies {
-    compile 'com.guns21:user-api:1.0.0-SNAPSHOT'
-    compile 'com.guns21:user-provider:1.0.0-SNAPSHOT'
+//    compile 'com.guns21:user-api:1.0.0-SNAPSHOT'
+//    compile 'com.guns21:user-provider:1.0.0-SNAPSHOT'
+    compile project(':user-api')
+    compile project(':user-provider')
     compile 'com.guns21:support:1.0.0-SNAPSHOT'
     compile 'com.guns21:servlet:1.0.0-SNAPSHOT'
     compile 'com.guns21:jackjson-mixin:1.0.0-SNAPSHOT'
