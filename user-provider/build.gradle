@@ -5,7 +5,7 @@ apply from: 'https://raw.githubusercontent.com/21guns/java-gradle/master/spring-
 dependencies {
     compile 'com.guns21:common:1.0.0-SNAPSHOT'
     compile 'com.guns21:support:1.0.0-SNAPSHOT'
-    compile 'com.guns21:user-api:1.0.0-SNAPSHOT'
+    compile project(':user-api')
 
     compile libraries.fastjson
     compile 'org.hibernate:hibernate-validator'
