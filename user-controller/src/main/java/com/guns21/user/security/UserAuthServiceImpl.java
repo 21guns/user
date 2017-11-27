@@ -32,7 +32,7 @@ public class UserAuthServiceImpl implements UserAuthService, ResourceRoleMapping
     public AuthUser getUser(String userName) {
         String smsCode = template.opsForValue().get(userName + ".code");
         if (StringUtils.isEmpty(smsCode)) {
-            throw new BadCredentialsException("验证码错误");
+            throw new BadCredentialsException("验证码过期！");
         }
 
         userCommandService.saveByMobile(userName);
