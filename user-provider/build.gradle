@@ -8,7 +8,12 @@ dependencies {
     compile project(':user-api')
 
     compile libraries.fastjson
+    compile libraries.guava
     compile 'org.hibernate:hibernate-validator'
     compile 'org.springframework.data:spring-data-redis'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'io.projectreactor:reactor-bus'
+
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+
 }

@@ -4,6 +4,8 @@ import com.guns21.support.entity.AbstractEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -12,7 +14,9 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-public class SmsLog extends AbstractEntity {
+@Entity
+@Table(name = "TB_SMS_LOG")
+public class SmsLogDO extends AbstractEntity {
     public static final Integer TYPE_REGISTER = 1; //注册类型
     public static final Integer TYPE_LOGIN = 2; //登录类型
     public static final Integer TYPE_ADMIN = 3; //后台管理员
@@ -26,7 +30,7 @@ public class SmsLog extends AbstractEntity {
     private Date pastTime; //过期时间
     private String result; //短信发送结果
 
-    public static SmsLog newSmsLog() {
-        return new SmsLog();
+    public static SmsLogDO newSmsLog() {
+        return new SmsLogDO();
     }
 }

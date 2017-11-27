@@ -3,6 +3,8 @@ package com.guns21.user.security;
 import com.guns21.authentication.api.entity.AuthUser;
 import com.guns21.authentication.api.service.UserAuthService;
 import com.guns21.authorization.ResourceRoleMapping;
+import com.guns21.user.entity.UserDO;
+import com.guns21.user.service.UserCommandService;
 import com.guns21.web.entity.Role;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,17 @@ public class UserAuthServiceImpl implements UserAuthService, ResourceRoleMapping
     @Autowired
     private RedisTemplate<String, String> template;
 
+    @Autowired
+    private UserCommandService userCommandService;
+
     @Override
     public AuthUser getUser(String userName) {
         String smsCode = template.opsForValue().get(userName + ".code");
         if (StringUtils.isEmpty(smsCode)) {
             throw new BadCredentialsException("验证码错误");
         }
+
+        userCommandService.saveByMobile(userName);
 
         AuthUser authUser = new AuthUser();
         authUser.setUserName(userName);

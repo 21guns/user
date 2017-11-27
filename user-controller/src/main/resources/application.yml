@@ -49,6 +49,8 @@ spring:
 com:
   guns21:
     security:
+      login: /api/user/v1/login
+      logout: /api/user/v1/logout
       permit-pages: /api/sms/v1/sendCode
       message:
         password-error: 验证码错误
