@@ -54,3 +54,4 @@ com:
       permit-pages: /api/sms/v1/sendCode
       message:
         password-error: 验证码错误
+#      auth-url:
