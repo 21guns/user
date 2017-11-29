@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class SendMessageUtils {
     private static Logger logger = LoggerFactory.getLogger(SendMessageUtils.class);
-    private static final String apikey = "a81eedff75eb04a40f7d2c69b7ab55f0";
+    private static final String apikey = "2d0d511aaf6ca13f0abedbbe3e6cd829";
 
     public static final String SMS_TEMPLATE = "【聚贷宝】您的验证码是";
     public static final String SMS_TEMPLATE_NOTIFY = "【聚贷宝】尊敬的用户：";
