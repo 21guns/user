@@ -4,9 +4,13 @@ import com.guns21.authentication.api.entity.AuthUser;
 import com.guns21.authentication.api.service.UserAuthService;
 import com.guns21.authorization.ResourceRoleMapping;
 import com.guns21.common.util.ObjectUtils;
+import com.guns21.result.domain.Result;
+import com.guns21.user.entity.UserDO;
 import com.guns21.user.service.UserCommandService;
 import com.guns21.web.entity.Role;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,7 +27,7 @@ import java.util.Objects;
  */
 @Service
 public class UserAuthServiceImpl implements UserAuthService, ResourceRoleMapping {
-
+    private static Logger logger = LoggerFactory.getLogger(UserAuthServiceImpl.class);
 
     private List<String> authUrls;
 
@@ -49,12 +53,18 @@ public class UserAuthServiceImpl implements UserAuthService, ResourceRoleMapping
             throw new BadCredentialsException("验证码过期！");
         }
 
-        userCommandService.saveByMobile(userName);
+        Result<UserDO> userDOResult = userCommandService.saveByMobile(userName);
 
-        AuthUser authUser = new AuthUser();
-        authUser.setUserName(userName);
-        authUser.setPassword(smsCode);
-        return authUser;
+        if (userDOResult.getSuccess()) {
+            AuthUser authUser = new AuthUser();
+            authUser.setUserName(userName);
+            authUser.setPassword(smsCode);
+            authUser.setId(userDOResult.getData().getId());
+            return authUser;
+        } else {
+            logger.error("登录异常:{}", userDOResult.getMessage());
+            throw new BadCredentialsException("登录异常");
+        }
     }
 
     /**
