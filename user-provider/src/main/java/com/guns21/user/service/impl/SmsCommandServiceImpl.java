@@ -3,10 +3,10 @@ package com.guns21.user.service.impl;
 import com.guns21.common.util.DateUtils;
 import com.guns21.result.domain.Result;
 import com.guns21.support.service.BaseCommandService;
+import com.guns21.user.UserConstant;
 import com.guns21.user.entity.SmSTypeEnum;
 import com.guns21.user.entity.SmsLogDO;
 import com.guns21.user.service.SmsCommandService;
-import com.guns21.user.sms.SendMessageUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,11 +55,11 @@ public class SmsCommandServiceImpl extends BaseCommandService implements SmsComm
             smsLogDO.setPastTime(pastTime);
             smsLogDO.setValidCode(generatorCode(4));
             if (StringUtils.isEmpty(smsLogDO.getContent())) {
-                smsLogDO.setContent(SendMessageUtils.SMS_TEMPLATE + smsLogDO.getValidCode());
+                smsLogDO.setContent(UserConstant.SMS_TEMPLATE + smsLogDO.getValidCode());
             }
             ops.set(strSmsCode, smsLogDO.getValidCode(), 1, TimeUnit.MINUTES);
 
-            eventBus.notify("sms-log", Event.wrap(smsLogDO));
+            eventBus.notify(UserConstant.SMS_SEND_EVENT, Event.wrap(smsLogDO));
 
 //            persistedActorRef.tell(smsLogDO, null); TODO 数据持久化
 
