@@ -15,17 +15,19 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Override
     public Result register(RegisterUserInfo registerUserInfo) {
         return null;
     }
 
     @Override
-    public Result<UserDO> saveByMobile(String mobile) {
+    public Result updateLastLoginTime(String mobile) {
         Optional<UserDO> exist = userRepository.findByMobile(mobile);
-        UserDO userDO = exist.orElse(UserDO.builder().mobile(mobile).build());
-        userDO.preUpdate();
-        UserDO save = userRepository.save(userDO);
-        return Result.success(save);
+        exist.ifPresent(userDO -> {
+            userRepository.updateLastLoginTime(mobile);
+        });
+
+        return  exist.isPresent()?Result.success(exist.get()):Result.fail("mobile don't exist");
     }
 }

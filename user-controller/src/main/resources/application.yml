@@ -33,19 +33,9 @@ spring:
     database: 0
     port: 6379
 
-  jpa:
-    show-sql: true
-    # Hibernate ddl auto (create, create-drop, update): with "update" the database
-    # schema will be automatically updated accordingly to java entities found in
-    # the project
-    hibernate:
-     ddl-auto: update
-     # Naming strategy
-     #naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-     naming:
-      implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-
+mybatis:
+  type-aliases-package: com.guns21.**.entity
+  mapper-locations: classpath*:com.guns21.**.mapper/*.xml
 com:
   guns21:
     security:

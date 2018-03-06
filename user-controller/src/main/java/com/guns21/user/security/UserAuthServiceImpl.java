@@ -53,7 +53,7 @@ public class UserAuthServiceImpl implements UserAuthService, ResourceRoleMapping
             throw new BadCredentialsException("验证码过期！");
         }
 
-        Result<UserDO> userDOResult = userCommandService.saveByMobile(userName);
+        Result<UserDO> userDOResult = userCommandService.updateLastLoginTime(userName);
 
         if (userDOResult.getSuccess()) {
             AuthUser authUser = new AuthUser();

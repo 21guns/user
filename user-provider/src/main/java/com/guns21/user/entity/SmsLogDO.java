@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -27,7 +28,7 @@ public class SmsLogDO extends AbstractEntity {
     private String validCode; //验证码
     private String userId; //用户id
     private String op; //业务操作的id
-    private Date pastTime; //过期时间
+    private LocalDateTime pastTime; //过期时间
     private String result; //短信发送结果
 
     public static SmsLogDO newSmsLog() {

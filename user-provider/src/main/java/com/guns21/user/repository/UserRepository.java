@@ -1,12 +1,10 @@
 package com.guns21.user.repository;
 
 import com.guns21.user.entity.UserDO;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<UserDO, String>, JpaSpecificationExecutor<UserDO> {
+public interface UserRepository {
 
     /**
      *
@@ -15,4 +13,8 @@ public interface UserRepository extends JpaRepository<UserDO, String>, JpaSpecif
      */
     Optional<UserDO> findByMobile(String mobile);
 
+    void save(UserDO userDO);
+
+
+    void updateLastLoginTime(String mobile);
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -48,11 +49,10 @@ public class SmsCommandServiceImpl extends BaseCommandService implements SmsComm
             SmsLogDO smsLogDO = SmsLogDO.newSmsLog();
             smsLogDO.setType(SmSTypeEnum.LOGIN.getCode());
             smsLogDO.setMobile(mobile);
-            Date currentDate = DateUtils.newDate();
-            smsLogDO.setCreateTime(currentDate);
+            LocalDateTime currentDate = LocalDateTime.now();
+            smsLogDO.setGmtCreate(currentDate);
             //设置过期时间为1分钟
-            Date pastTime = new Date(currentDate.getTime() + (60 * 1000));
-            smsLogDO.setPastTime(pastTime);
+            smsLogDO.setPastTime(currentDate.plusMinutes(1));
             smsLogDO.setValidCode(generatorCode(4));
             if (StringUtils.isEmpty(smsLogDO.getContent())) {
                 smsLogDO.setContent(UserConstant.SMS_TEMPLATE + smsLogDO.getValidCode());

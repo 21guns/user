@@ -8,5 +8,5 @@ public interface UserCommandService {
 
     Result register(RegisterUserInfo registerUserInfo);
 
-    Result<UserDO> saveByMobile(String mobile);
+    Result updateLastLoginTime(String mobile);
 }

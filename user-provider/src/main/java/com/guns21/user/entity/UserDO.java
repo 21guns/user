@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -40,7 +41,7 @@ public class UserDO extends AbstractEntity {
     //IP地址
     private String ip;
 
-    private Date lastLoginTime;
+    private LocalDateTime lastLoginTime;
 
     @Transient
     private String password;
@@ -48,13 +49,13 @@ public class UserDO extends AbstractEntity {
     @Override
     public void prePersist() {
         super.prePersist();
-        setLastLoginTime(DateUtils.newDate());
+        setLastLoginTime(LocalDateTime.now());
     }
 
     @Override
     public void preUpdate() {
         super.preUpdate();
-        setLastLoginTime(DateUtils.newDate());
+        setLastLoginTime(LocalDateTime.now());
     }
 
     /**
