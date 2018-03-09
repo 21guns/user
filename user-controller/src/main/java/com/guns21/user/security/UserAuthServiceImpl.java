@@ -38,12 +38,8 @@ public class UserAuthServiceImpl implements UserAuthService, ResourceRoleMapping
     private UserCommandService userCommandService;
 
     @Value("${com.guns21.security.auth-url:#{null}}")
-    public void setAuthUrls(String[] authUrls) {
-        if (Objects.nonNull(authUrls)) {
-            this.authUrls  = Arrays.asList(authUrls);
-        } else {
-            this.authUrls = Collections.EMPTY_LIST;
-        }
+    public void setAuthUrls(List authUrls) {
+        this.authUrls  = authUrls;
     }
 
     @Override
@@ -75,7 +71,7 @@ public class UserAuthServiceImpl implements UserAuthService, ResourceRoleMapping
     @Override
     public List<Role> getUserRoles(String userName) {
         Role role = new Role("NORMAL", "NORMAL", "NORMAL");
-        return Arrays.asList(role);
+        return Collections.singletonList(role);
     }
 
     /**

@@ -1,6 +1,6 @@
 server:
   session:
-    timeout: 180
+    timeout: 1800
   port: 9093
 
 #spring相关
@@ -35,13 +35,15 @@ spring:
 
 mybatis:
   type-aliases-package: com.guns21.**.entity
-  mapper-locations: classpath*:com.guns21.**.mapper/*.xml
+  mapper-locations: classpath*:mapper/*.xml
 com:
   guns21:
     security:
+      anonymous:
+        disable: false
       login: /api/v1/user/login
       logout: /api/v1/user/logout
       permit-pages: /api/v1/sms/sendCode
       message:
         password-error: 验证码错误
-#      auth-url:
+      auth-url: /api/v1/user/userInfo

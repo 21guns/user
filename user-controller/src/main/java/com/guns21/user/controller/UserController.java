@@ -23,10 +23,14 @@ import java.util.List;
 @RequestMapping("/api/v1/user/")
 public class UserController extends AppBaseController {
 
-    @GetMapping(value = "user")
+    @GetMapping(value = "userInfo")
     public Result userInfo(@CurrentUser UserRoleDetails userRoleDetails) {
 
         return Result.success(userRoleDetails);
     }
+    @GetMapping(value = "userAuth")
+    public Result userInfo() {
 
+        return Result.success();
+    }
 }

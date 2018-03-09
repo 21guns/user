@@ -1,7 +1,7 @@
 package com.guns21.user.repository.impl;
 
 import com.guns21.user.entity.UserDO;
-import com.guns21.user.mapper.UserMapper;
+import com.guns21.user.repository.mapper.UserMapper;
 import com.guns21.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

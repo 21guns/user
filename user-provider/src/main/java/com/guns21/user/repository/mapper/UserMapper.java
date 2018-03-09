@@ -1,4 +1,4 @@
-package com.guns21.user.mapper;
+package com.guns21.user.repository.mapper;
 
 import com.guns21.user.entity.UserDO;
 import org.apache.ibatis.annotations.Param;
