@@ -11,27 +11,23 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-import reactor.bus.Event;
-import reactor.bus.EventBus;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
-public class SmsCommandServiceImpl extends BaseCommandService implements SmsCommandService {
+public class SmsCommandServiceImpl extends BaseCommandService implements SmsCommandService,ApplicationEventPublisherAware {
     private static Logger logger = LoggerFactory.getLogger(SmsCommandServiceImpl.class);
 
     @Autowired
     private RedisTemplate<String, String> template;
-
-    @Autowired
-    EventBus eventBus;
 
     @Override
     public Result sendRegisterCode(String mobile) {
@@ -59,7 +55,7 @@ public class SmsCommandServiceImpl extends BaseCommandService implements SmsComm
             }
             ops.set(strSmsCode, smsLogDO.getValidCode(), 1, TimeUnit.MINUTES);
 
-            eventBus.notify(UserConstant.SMS_SEND_EVENT, Event.wrap(smsLogDO));
+            applicationEventPublisher.publishEvent(smsLogDO);
 
 //            persistedActorRef.tell(smsLogDO, null); TODO 数据持久化
 
@@ -82,6 +78,14 @@ public class SmsCommandServiceImpl extends BaseCommandService implements SmsComm
         Random random = new Random();
         String collect = random.ints(length, 0, 9).mapToObj(Integer::toString).collect(Collectors.joining(""));
         return collect;
+    }
+
+
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 }
 

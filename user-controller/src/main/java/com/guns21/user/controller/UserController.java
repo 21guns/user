@@ -20,7 +20,7 @@ import java.util.List;
  * Created by jliu on 16/6/30.
  */
 @RestController
-@RequestMapping("/api/user/v1")
+@RequestMapping("/api/v1/user/")
 public class UserController extends AppBaseController {
 
     @GetMapping(value = "user")

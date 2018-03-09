@@ -39,9 +39,9 @@ mybatis:
 com:
   guns21:
     security:
-      login: /api/user/v1/login
-      logout: /api/user/v1/logout
-      permit-pages: /api/sms/v1/sendCode
+      login: /api/v1/user/login
+      logout: /api/v1/user/logout
+      permit-pages: /api/v1/sms/sendCode
       message:
         password-error: 验证码错误
 #      auth-url:
