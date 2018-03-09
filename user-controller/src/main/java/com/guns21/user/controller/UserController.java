@@ -5,6 +5,7 @@ import com.guns21.result.domain.Result;
 import com.guns21.support.controller.AppBaseController;
 import com.guns21.user.api.dto.RegisterUserInfo;
 import com.guns21.web.bind.annotation.CurrentUser;
+import com.guns21.web.entity.UserInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,8 @@ import java.util.List;
 @RequestMapping("/api/v1/user/")
 public class UserController extends AppBaseController {
 
-    @GetMapping(value = "userInfo")
-    public Result userInfo(@CurrentUser UserRoleDetails userRoleDetails) {
+    @GetMapping(value = "user")
+    public Result userInfo(@CurrentUser UserInfo userRoleDetails) {
 
         return Result.success(userRoleDetails);
     }
